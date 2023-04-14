@@ -36,3 +36,4 @@ _O comando acima irá iniciar sua API e efetuar os comandos de acordo com a sua 
 5. Para "ver" sua API funcionando você pode visualizar os gráficos das capturas sendo exibidos no seu navegador pelo caminho **http://localhost:3300** ou efetuando SELECT no seu Banco de Dados, caso tenha optado por inseri-los.
 
 6. Caso queira parar a API, tecle **CTRL+C** no terminal em que a API está rodando.
+=======
