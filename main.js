@@ -20,6 +20,10 @@ const AMBIENTE = 'desenvolvimento';
 
 const serial = async (
     valoresDht11Umidade,
+    valoresDht11UmidadeSimulado1,
+    valoresDht11UmidadeSimulado2,
+    valoresDht11UmidadeSimulado3,
+    valoresDht11UmidadeSimulado4,
 ) => {
     let poolBancoDados = ''
 
@@ -59,8 +63,16 @@ const serial = async (
         //console.log(data);
         const valores = data.split(';');
         const dht11Umidade = parseFloat(valores[0]);
+        const dht11UmidadeSimulado1 = parseFloat(valores[0]);
+        const dht11UmidadeSimulado2 = parseFloat(valores[1]);
+        const dht11UmidadeSimulado3 = parseFloat(valores[2]);
+        const dht11UmidadeSimulado4 = parseFloat(valores[3]);
 
         valoresDht11Umidade.push(dht11Umidade);
+        valoresDht11UmidadeSimulado1.push(dht11UmidadeSimulado1);
+        valoresDht11UmidadeSimulado2.push(dht11UmidadeSimulado2);
+        valoresDht11UmidadeSimulado3.push(dht11UmidadeSimulado3);
+        valoresDht11UmidadeSimulado4.push(dht11UmidadeSimulado4);
         if (HABILITAR_OPERACAO_INSERIR) {
             if (AMBIENTE == 'producao') {
                 // altere!
@@ -93,9 +105,9 @@ const serial = async (
                 // >> você deve ter o aquario de id 1 cadastrado.
                 await poolBancoDados.execute(
                     'INSERT INTO medida (dht11_umidade, dht11_temperatura, luminosidade, lm35_temperatura, chave, momento, fk_aquario) VALUES (?, ?, ?, ?, ?, now(), 1)',
-                    [dht11Umidade, dht11Temperatura, luminosidade, lm35Temperatura, chave]
+                    [dht11Umidade, dht11UmidadeSimulado1, dht11UmidadeSimulado2, dht11UmidadeSimulado3, dht11UmidadeSimulado4]
                 );
-                console.log("valores inseridos no banco: ", dht11Umidade + ", " + dht11Temperatura + ", " + luminosidade + ", " + lm35Temperatura + ", " + chave)
+                console.log("valores inseridos no banco: ", dht11Umidade + ", " + dht11UmidadeSimulado1 + ", " +   dht11UmidadeSimulado2 + ", " + dht11UmidadeSimulado3 + ", " + dht11UmidadeSimulado4);
 
             } else {
                 throw new Error('Ambiente não configurado. Verifique o arquivo "main.js" e tente novamente.');
