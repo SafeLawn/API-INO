@@ -63,10 +63,10 @@ const serial = async (
         //console.log(data);
         const valores = data.split(';');
         const dht11Umidade = parseFloat(valores[0]);
-        const dht11UmidadeSimulado1 = parseFloat(valores[0]);
-        const dht11UmidadeSimulado2 = parseFloat(valores[1]);
-        const dht11UmidadeSimulado3 = parseFloat(valores[2]);
-        const dht11UmidadeSimulado4 = parseFloat(valores[3]);
+        const dht11UmidadeSimulado1 = parseFloat(valores[1]);
+        const dht11UmidadeSimulado2 = parseFloat(valores[2]);
+        const dht11UmidadeSimulado3 = parseFloat(valores[3]);
+        const dht11UmidadeSimulado4 = parseFloat(valores[4]);
 
         valoresDht11Umidade.push(dht11Umidade);
         valoresDht11UmidadeSimulado1.push(dht11UmidadeSimulado1);
@@ -123,10 +123,11 @@ const serial = async (
 // não altere!
 const servidor = (
     valoresDht11Umidade,
-    valoresDht11Temperatura,
-    valoresLuminosidade,
-    valoresLm35Temperatura,
-    valoresChave
+    valoresDht11UmidadeSimulado1,
+    valoresDht11UmidadeSimulado2,
+    valoresDht11UmidadeSimulado3,
+    valoresDht11UmidadeSimulado4,
+    
 ) => {
     const app = express();
     app.use((request, response, next) => {
@@ -140,38 +141,40 @@ const servidor = (
     app.get('/sensores/dht11/umidade', (_, response) => {
         return response.json(valoresDht11Umidade);
     });
-    app.get('/sensores/dht11/temperatura', (_, response) => {
-        return response.json(valoresDht11Temperatura);
+    app.get('/sensores/dht11/umidade1', (_, response) => {
+        return response.json(valoresDht11UmidadeSimulado1);
     });
-    app.get('/sensores/luminosidade', (_, response) => {
-        return response.json(valoresLuminosidade);
+    app.get('/sensores/dht11/umidade2', (_, response) => {
+        return response.json(valoresDht11UmidadeSimulado2);
     });
-    app.get('/sensores/lm35/temperatura', (_, response) => {
-        return response.json(valoresLm35Temperatura);
+    app.get('/sensores/dht11/umidade3', (_, response) => {
+        return response.json(valoresDht11UmidadeSimulado3);
     });
-    app.get('/sensores/chave', (_, response) => {
-        return response.json(valoresChave);
+    app.get('/sensores/dht11/umidade4', (_, response) => {
+        return response.json(valoresDht11UmidadeSimulado4);
     });
+    
 }
 
 (async () => {
     const valoresDht11Umidade = [];
-    const valoresDht11Temperatura = [];
-    const valoresLuminosidade = [];
-    const valoresLm35Temperatura = [];
-    const valoresChave = [];
+    const valoresDht11UmidadeSimulado1 = [];
+    const valoresDht11UmidadeSimulado2 = [];
+    const valoresDht11UmidadeSimulado3 = [];
+    const valoresDht11UmidadeSimulado4 = [];
     await serial(
         valoresDht11Umidade,
-        valoresDht11Temperatura,
-        valoresLuminosidade,
-        valoresLm35Temperatura,
-        valoresChave
+        valoresDht11UmidadeSimulado1,
+        valoresDht11UmidadeSimulado2,
+        valoresDht11UmidadeSimulado3,
+        valoresDht11UmidadeSimulado4,
+        
     );
     servidor(
         valoresDht11Umidade,
-        valoresDht11Temperatura,
-        valoresLuminosidade,
-        valoresLm35Temperatura,
-        valoresChave
+        valoresDht11UmidadeSimulado1,
+        valoresDht11UmidadeSimulado2,
+        valoresDht11UmidadeSimulado3,
+        valoresDht11UmidadeSimulado4,
     );
 })();
