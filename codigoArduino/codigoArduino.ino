@@ -36,13 +36,13 @@ Serial.println("Erro ao ler o DHT");
 else
 {
 Serial.print(umidadeReal);
-Serial.println(";");
+Serial.print(";");
 Serial.print(umidadeSimulada1);
-Serial.println(";");
+Serial.print(";");
 Serial.print(umidadeSimulada2);
-Serial.println(";");
+Serial.print(";");
 Serial.print(umidadeSimulada3);
-Serial.println(";");
+Serial.print(";");
 Serial.print(umidadeSimulada4);
 Serial.println(";");
 }

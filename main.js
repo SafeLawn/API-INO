@@ -11,7 +11,7 @@ const SERVIDOR_PORTA = 3300;
 // configure a linha abaixo caso queira que os dados capturados sejam inseridos no banco de dados.
 // false -> nao insere
 // true -> insere
-const HABILITAR_OPERACAO_INSERIR = false;
+const HABILITAR_OPERACAO_INSERIR = true;
 
 // altere o valor da variável AMBIENTE para o valor desejado:
 // API conectada ao banco de dados remoto, SQL Server -> 'producao'
@@ -33,9 +33,9 @@ const serial = async (
                 // altere!
                 // CREDENCIAIS DO BANCO LOCAL - MYSQL WORKBENCH
                 host: 'localhost',
-                user: 'USUARIO_DO_BANCO_LOCAL',
-                password: 'SENHA_DO_BANCO_LOCAL',
-                database: 'DATABASE_LOCAL'
+                user: 'root',
+                password: 'sptech',
+                database: 'safelawn'
             }
         ).promise();
     } else if (AMBIENTE == 'producao') {
@@ -103,9 +103,10 @@ const serial = async (
                 // -> altere nome da tabela e colunas se necessário
                 // Este insert irá inserir dados de fk_aquario id=1 (fixo no comando do insert abaixo)
                 // >> você deve ter o aquario de id 1 cadastrado.
+                console.log(dht11Umidade, dht11UmidadeSimulado1, dht11UmidadeSimulado2);
                 await poolBancoDados.execute(
-                    'INSERT INTO medida (dht11_umidade, dht11_temperatura, luminosidade, lm35_temperatura, chave, momento, fk_aquario) VALUES (?, ?, ?, ?, ?, now(), 1)',
-                    [dht11Umidade, dht11UmidadeSimulado1, dht11UmidadeSimulado2, dht11UmidadeSimulado3, dht11UmidadeSimulado4]
+                    'INSERT INTO DadosSensor (dtCaptura, valorCaptura, fkSensor, fkMedida) VALUES (now(), ?, ?, 1), (now(), ?, ?, 1), (now(), ?, ?, 1), (now(), ?, ?, 1), (now(), ?, ?, 1)',
+                    [dht11Umidade, 1, dht11UmidadeSimulado1, 2, dht11UmidadeSimulado2, 3, dht11UmidadeSimulado3, 4, dht11UmidadeSimulado4, 5]
                 );
                 console.log("valores inseridos no banco: ", dht11Umidade + ", " + dht11UmidadeSimulado1 + ", " +   dht11UmidadeSimulado2 + ", " + dht11UmidadeSimulado3 + ", " + dht11UmidadeSimulado4);
 
